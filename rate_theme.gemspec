@@ -14,10 +14,10 @@ Gem::Specification.new do |spec|
   your current theme to the highest rated.}
   spec.homepage      = ""
   spec.license       = "MIT"
-
+  spec.files         = `git ls-files`.split($/)
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib", "lib/rate_theme"]
-  spec.executables   << "rate_theme"
+  spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
