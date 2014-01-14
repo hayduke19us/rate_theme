@@ -1,4 +1,3 @@
-$:<< File.expand_path("../../lib", __FILE__)
 require "colorize"
 require "yaml"
 require "rate_theme/version"

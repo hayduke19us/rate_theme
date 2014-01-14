@@ -11,11 +11,6 @@ module RateTheme
     def test_logger_valid
       assert_instance_of RateTheme::Logger, @logger
     end
-
-    def test_action_based_on_file_does_exist
-     assert_instance_of File, @logger.action
-    end
-
   end
 
   class TestLister < Minitest::Test

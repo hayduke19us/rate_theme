@@ -1,2 +1,4 @@
 #!/usr/bin/env ruby
+puts $:
 require 'rate_theme'
+
