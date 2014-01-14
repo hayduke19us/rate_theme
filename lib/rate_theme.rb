@@ -1,3 +1,5 @@
+$: << File.expand_path('../../rate_theme.rb', __FILE__)
+
 require "colorize"
 require "yaml"
 require "rate_theme/version"

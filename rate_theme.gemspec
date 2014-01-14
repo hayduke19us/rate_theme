@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+  spec.require_paths = ["lib", "lib/rate_theme"]
   spec.executables   << "rate_theme"
 
   spec.add_development_dependency "bundler", "~> 1.5"
