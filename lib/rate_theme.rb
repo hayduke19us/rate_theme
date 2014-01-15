@@ -46,17 +46,32 @@ require "rate_theme/ask"
       @div.call
       chosen.all
       @div.call
-      change_theme = RateTheme::Ask.new question: "Change theme to highest rated? (y|n)"
-      puts change_theme.question
+      puts "1. Change theme to highest rated?"
+      puts "2. Choose specific theme?"
+      @div.call
+      change_theme = RateTheme::Ask.new question: "choose theme?" 
       change_theme.receive_answer
 
       @div.call
 
-      if change_theme.input =~ /\A(yes|y)/
+      if change_theme.input == '1'
         change = RateTheme::Changer.new @best
         @status.call("done")
 
         change.file_search
+      elsif change_theme.input == '2'
+        specific_theme = RateTheme::Ask.new question: "Type in the specific theme"
+        puts specific_theme.question
+        specific_theme.receive_answer
+        unless specific_theme.input == ''
+          change = RateTheme::Changer.new specific_theme.input  
+          @status.call("done")
+          change.file_search
+          @div.call
+          puts "open a new window for changes to show!".colorize(:green)
+        end
+      else
+        puts "choice must be 1 or 2"
       end
     else
       puts "No rated themes!"
