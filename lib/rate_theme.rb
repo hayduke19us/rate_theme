@@ -29,15 +29,17 @@ require "rate_theme/ask"
     puts name.question
     @div.call
     name.receive_answer
-    @div.call
-    rating = RateTheme::Ask.new question: "Theme rating? (1-10)"
-    puts rating.question
-    @div.call
-    rating.receive_answer
-    @div.call
-
-    logger = RateTheme::Logger.new name: name.input, rating: rating.input
-    logger.action
+    unless name.input == ''
+      @div.call
+      rating = RateTheme::Ask.new question: "Theme rating? (1-10)"
+      puts rating.question
+      @div.call
+      rating.receive_answer
+      @div.call
+      
+      logger = RateTheme::Logger.new name: name.input, rating: rating.input
+      logger.action
+    end
   elsif ask.input == '2'
     chosen = RateTheme::Lister.new
     if chosen.file_search

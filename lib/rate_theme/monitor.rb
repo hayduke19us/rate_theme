@@ -4,7 +4,7 @@ module  RateTheme
     def initialize(args)
       @name = args.fetch(:name)
       @rating = args.fetch(:rating)
-      @file = "themes.yml"
+      @file = File.expand_path("../themes.yml", __FILE__)
     end
 
     def file_virgin
@@ -33,7 +33,7 @@ module  RateTheme
     attr_accessor :best_theme, :sorted, :data
     attr_reader :file
     def initialize
-      @file = "themes.yml"
+      @file = File.expand_path("../themes.yml", __FILE__)
       @data = nil
       @best_theme = nil
       @sorted = nil
