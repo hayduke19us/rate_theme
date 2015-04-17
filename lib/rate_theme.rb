@@ -42,7 +42,7 @@ require "rate_theme/ask"
     end
   elsif ask.input == '2'
     chosen = RateTheme::Lister.new
-    if chosen.file_search
+    if chosen.find_file
       @best = chosen.best_theme
       puts @best.colorize(:red) + " Is your highest rated!"
       @div.call
