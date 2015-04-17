@@ -59,40 +59,61 @@ module  RateTheme
   end
 
   class Changer
-    attr_writer :file
-    attr_reader :theme, :file
+    attr_accessor :file
+    attr_reader :theme
     def initialize(theme)
       @theme = theme
       @file = Dir.home + "/.zshrc"
-      @other_file = Dir.home + "/code/configs/.zshrc"
-      @user_location = nil
+      @personal_defualt = Dir.home + "/code/configs/.zshrc"
+      @user_location = ''
     end
 
-    def file_search
-      if File.exist?(@file)
-        puts "File found in #{@file}".colorize(:green)
-        rc = File.open(@file, 'a+')
-        all = rc.readlines
-        all.each do |line|
-          if line =~ /ZSH_THEME=/
-            @tmp = line
-          end
-        end
-        index = all.index(@tmp).to_i
-        all[index] = "ZSH_THEME=" + "'" + "#{@theme}" + "'"
-        File.open(@file, 'w') do |file|
-          all.each do |a|
-            file.puts a
-          end
-        end
+    def file?
+      File.exist?(self.file) ? true : false
+    end
+
+    def self.find_theme_config lines
+      tmp = 0
+      lines.each { |l| tmp = l if l =~ /ZSH_THEME/ }
+      tmp > 1 ? tmp : false
+    end
+
+    def self.rewrite_config lines, file
+      lines.each do |l|
+        file.puts l
+      end
+      file.close
+    end
+
+    def find_file
+      if self.file?
+        Success.p_found_file self.file
+        config_file = File.open(self.file, 'w+')
+        all_lines = config_file.readlines
+        config_line = Changer.find_theme_config config_file
+        index = all_lines.index config_line
+        all_lines[index.to_i] = "ZSH_THEME=" + "'" + "#{@theme}" + "'"
+        Changer.rewrite_config all_lines, config_file
       else
-        puts "We can't find your file".colorize(:red)
-        puts "Please enter the path of your .zshrc file '/../../'"
+        Error.missing_file
         input = gets.chomp
         unless input == ''
           self.file = input
           self.file_search
         end
+      end
+    end
+
+    class Error
+      def self.p_missing_file
+        puts "We can't find your file".colorize(:red)
+        puts "Please enter the path of your .zshrc file '/../../'"
+      end
+    end
+
+    class Success
+      def self.p_found_file file
+        puts "File found in #{file}".colorize(:green)
       end
     end
   end

@@ -18,12 +18,16 @@ module RateTheme
       lister = Lister.new
       assert_instance_of RateTheme::Lister, lister
     end
-  
+
   end
 
   class TestChanger < Minitest::Test
     def setup
       @changer = RateTheme::Changer.new "minimal"
-    end 
+    end
+
+    def test_if_no_file_is_found_it_allows_you_to_enter_a_new_path
+      @changer.find_file
+    end
   end
 end
