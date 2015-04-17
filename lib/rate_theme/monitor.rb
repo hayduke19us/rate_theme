@@ -64,6 +64,7 @@ module  RateTheme
     def initialize(theme)
       @theme = theme
       @file = Dir.home + "/.zshrc"
+      @other_file = Dir.home + "/code/configs/.zshrc"
       @user_location = nil
     end
 

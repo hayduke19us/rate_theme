@@ -22,7 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "minitest"
-  spec.add_development_dependency "ZenTest"
-  spec.add_development_dependency "autotest-fsevent"
   spec.add_runtime_dependency "colorize"
 end
