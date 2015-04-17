@@ -79,10 +79,7 @@ module  RateTheme
     end
 
     def self.rewrite_config lines, file
-      lines.each do |l|
-        file.puts l
-      end
-      file.close
+      return lines
     end
 
     def find_file

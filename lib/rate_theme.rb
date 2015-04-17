@@ -36,7 +36,7 @@ require "rate_theme/ask"
       @div.call
       rating.receive_answer
       @div.call
-      
+
       logger = RateTheme::Logger.new name: name.input, rating: rating.input
       logger.action
     end
@@ -51,7 +51,7 @@ require "rate_theme/ask"
       puts "1. Change theme to highest rated?"
       puts "2. Choose specific theme?"
       @div.call
-      change_theme = RateTheme::Ask.new question: "choose theme?" 
+      change_theme = RateTheme::Ask.new question: "choose theme?"
       change_theme.receive_answer
 
       @div.call
@@ -60,15 +60,15 @@ require "rate_theme/ask"
         change = RateTheme::Changer.new @best
         @status.call("done")
 
-        change.file_search
+        change.find_file
       elsif change_theme.input == '2'
         specific_theme = RateTheme::Ask.new question: "Type in the specific theme"
         puts specific_theme.question
         specific_theme.receive_answer
         unless specific_theme.input == ''
-          change = RateTheme::Changer.new specific_theme.input  
+          change = RateTheme::Changer.new specific_theme.input
           @status.call("done")
-          change.file_search
+          change.find_file
           @div.call
           puts "open a new window for changes to show!".colorize(:green)
         end
@@ -82,5 +82,5 @@ require "rate_theme/ask"
   elsif ask.input == '3'
     @status.call("done")
     random = RateTheme::Changer.new 'random'
-    random.file_search
+    random.find_file
   end
