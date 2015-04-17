@@ -75,22 +75,25 @@ module  RateTheme
     def self.find_theme_config lines
       tmp = 0
       lines.each { |l| tmp = l if l =~ /ZSH_THEME/ }
-      tmp > 1 ? tmp : false
+      tmp == 0 ? false : tmp
     end
 
-    def self.rewrite_config lines, file
-      return lines
+    def rewrite_config lines
+      File.open(self.file, 'w') do |f|
+        lines.each {|l| f << l}
+      end
     end
 
     def find_file
       if self.file?
         Success.p_found_file self.file
-        config_file = File.open(self.file, 'w+')
+        config_file = File.open(self.file, 'a+')
         all_lines = config_file.readlines
-        config_line = Changer.find_theme_config config_file
-        index = all_lines.index config_line
+        config_file.close
+        config_line = Changer.find_theme_config all_lines
+        index = all_lines.index(config_line)
         all_lines[index.to_i] = "ZSH_THEME=" + "'" + "#{@theme}" + "'"
-        Changer.rewrite_config all_lines, config_file
+        self.rewrite_config all_lines
       else
         Error.missing_file
         input = gets.chomp
